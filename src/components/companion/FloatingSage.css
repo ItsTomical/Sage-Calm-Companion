@@ -1,0 +1,94 @@
+.floating-sage {
+  position: fixed;
+  z-index: 1000;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1), top 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.floating-sage.dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.floating-sage.dragging .sage-mark {
+  box-shadow: 0 10px 32px rgba(90, 122, 90, 0.35);
+}
+
+.fs-bubble {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: 0;
+  width: max-content;
+  max-width: 240px;
+  background: white;
+  border: 1px solid rgba(138, 171, 138, 0.25);
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-size: 12.5px;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--soft-text);
+  box-shadow: 0 6px 24px rgba(90, 122, 90, 0.15);
+  animation: fs-bubble-in 0.25s ease;
+}
+
+.fs-bubble.below {
+  top: calc(100% + 10px);
+  bottom: auto;
+}
+
+.fs-bubble.left-align {
+  left: 0;
+  right: auto;
+}
+
+@keyframes fs-bubble-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Small screens ──
+   Below 1024px Sage lives in the band along the bottom of the page. Her
+   bubble sits beside her in that band (she slides right to make room), and
+   grows upwards if a message runs long. She fades out while a phone
+   keyboard is open. */
+@media (max-width: 1023px) {
+  .fs-bubble.band {
+    top: auto;
+    bottom: 4px;
+    max-width: calc(100vw - var(--sage-size) - 48px);
+  }
+
+  .fs-bubble.band.to-left {
+    right: calc(100% + 10px);
+    left: auto;
+  }
+
+  .fs-bubble.band.to-right {
+    left: calc(100% + 10px);
+    right: auto;
+  }
+
+  /* Reduced motion keeps her centred, so the bubble rises above her. */
+  .fs-bubble.band.centred {
+    bottom: calc(100% + 10px);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    animation: none;
+  }
+
+  .floating-sage {
+    transition:
+      left 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      top 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.2s ease;
+  }
+
+  .floating-sage.typing {
+    opacity: 0;
+    pointer-events: none;
+  }
+}

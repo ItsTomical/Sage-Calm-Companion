@@ -1,0 +1,225 @@
+/* Scrolls on its own if the screen is short (see .dash-app); the margin and
+   padding leave room for the cards' shadows. */
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  overflow-y: auto;
+  margin: 0 -12px;
+  padding: 0 12px 24px;
+}
+
+/* Cards keep their full height and the column scrolls instead. */
+.right-panel > * {
+  flex-shrink: 0;
+}
+
+.mood-selector {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mood-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 8px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid rgba(138, 171, 138, 0.2);
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: var(--transition);
+  flex: 1;
+  min-width: 44px;
+}
+
+.mood-btn:hover {
+  background: var(--sage-mist);
+  border-color: var(--sage);
+}
+
+.mood-btn.selected {
+  background: var(--sage-mist);
+  border-color: var(--sage);
+}
+
+.mood-emoji {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.mood-word {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--muted-text);
+}
+
+.streak-display {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(212, 169, 106, 0.2);
+}
+
+.streak-num {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.streak-label {
+  font-size: 11px;
+  color: var(--muted-text);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.streak-flame {
+  width: 12px;
+  height: 12px;
+  object-fit: contain;
+}
+
+.streak-sub {
+  font-size: 11px;
+  color: var(--muted-text);
+  opacity: 0.7;
+}
+
+/* Centred, not stretched: stretching sets every dot to the row's height and
+   overrides the square shape that keeps them round. */
+.week-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+/* Each day takes an equal share of the row, up to 28px, and stays square so
+   it's always a circle. Seven fixed 28px dots don't fit the narrower streak
+   card, and would be squeezed into ovals. */
+.week-dot {
+  flex: 1 1 0;
+  max-width: 28px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.week-dot.done-w { background: var(--sage-deep); color: #fff; }
+/* The ring is drawn inside the dot so today stays the same size as the rest. */
+.week-dot.today-w { background: var(--sage-pale); color: var(--sage-deep); box-shadow: inset 0 0 0 1.5px var(--sage); }
+.week-dot.empty-w { background: rgba(138, 171, 138, 0.12); color: var(--muted-text); }
+
+.focus-today {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.focus-num {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  color: var(--dark-text);
+}
+
+.focus-lbl {
+  font-size: 12px;
+  color: var(--muted-text);
+}
+
+.mini-bars {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+  align-items: flex-end;
+}
+
+.mini-bar {
+  width: 18px;
+  border-radius: 3px 3px 0 0;
+  background: var(--sage-light);
+}
+
+.mini-bar.today-bar {
+  background: var(--sage-deep);
+}
+
+/* ── Small screens ──
+   Below 1024px: the card is a one-line toggle beside Today at the top of
+   the dashboard (see MoodPanel.jsx), opening to all five moods.
+   Below 640px: all five moods fit on one row.
+   Below 390px: a smaller title so Today and Mood still share a row. */
+@media (max-width: 1023px) {
+  .mood-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 44px;
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    text-align: left;
+  }
+
+  .mood-toggle-label {
+    flex: 1;
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--dark-text);
+  }
+
+  .mood-toggle .mood-emoji {
+    width: 24px;
+    height: 24px;
+  }
+
+  .mood-chevron {
+    color: var(--sage-deep);
+    transition: transform 0.2s ease;
+  }
+
+  .mood-toggle[aria-expanded='true'] .mood-chevron {
+    transform: rotate(180deg);
+  }
+
+  .mp-mood.open .mood-selector {
+    margin-top: 14px;
+  }
+}
+
+@media (max-width: 639px) {
+  .mood-selector {
+    flex-wrap: nowrap;
+  }
+
+  .mood-btn {
+    min-width: 0;
+    min-height: 44px;
+    padding: 10px 4px;
+  }
+}
+
+@media (max-width: 389px) {
+  .mood-toggle-label {
+    font-size: 17px;
+  }
+}

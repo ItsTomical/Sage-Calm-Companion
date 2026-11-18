@@ -1,0 +1,92 @@
+.timer-wrap {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin-bottom: 32px;
+}
+
+.timer-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.t-track {
+  fill: none;
+  stroke: rgba(138, 171, 138, 0.15);
+  stroke-width: 5;
+}
+
+.t-fill {
+  fill: none;
+  stroke: var(--sage);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 628;
+  stroke-dashoffset: 157;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.breathe-aura {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(138, 171, 138, 0.08) 0%, transparent 70%);
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.timer-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer-num {
+  font-family: var(--font-serif);
+  font-size: 50px;
+  font-weight: 400;
+  color: var(--dark-text);
+  line-height: 1;
+}
+
+.timer-sub {
+  font-size: 10px;
+  color: var(--muted-text);
+  margin-top: 4px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* The small ring in the bar once work has started (see Focus.jsx): just the
+   time, with a thicker line so the ring still reads at this size. */
+.timer-wrap.compact {
+  width: 72px;
+  height: 72px;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.timer-wrap.compact .t-track,
+.timer-wrap.compact .t-fill {
+  stroke-width: 10;
+}
+
+.timer-wrap.compact .timer-num {
+  font-size: 18px;
+}
+
+.timer-wrap.compact .timer-sub,
+.timer-wrap.compact .breathe-aura {
+  display: none;
+}

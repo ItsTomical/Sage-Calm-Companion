@@ -1,0 +1,116 @@
+.topbar {
+  background: rgba(250, 249, 246, 0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(138, 171, 138, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  z-index: 100;
+}
+
+.tb-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tb-title {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--dark-text);
+  letter-spacing: -0.01em;
+}
+
+.tb-date-chip {
+  font-size: 13px;
+  color: var(--muted-text);
+}
+
+.tb-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.streak-flame {
+  width: 13px;
+  height: 13px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.streak-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(212, 169, 106, 0.15);
+  border: 1px solid rgba(212, 169, 106, 0.25);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #8a6a28;
+}
+
+.av {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sage-pale), var(--blush));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  border: 2px solid rgba(138, 171, 138, 0.25);
+}
+
+/* ── Small screens ──
+   640px and up: the phone-only Help/Profile buttons and short streak label
+   stay hidden, so the desktop header is unaffected.
+   Below 640px: no date, a short streak label, and Help and Profile here
+   instead of the sidebar. Clears the notch. */
+@media (min-width: 640px) {
+  .tb-phone-only,
+  .sp-short {
+    display: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .topbar {
+    padding: env(safe-area-inset-top) max(12px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left));
+  }
+
+  .tb-date-chip,
+  .sp-long {
+    display: none;
+  }
+
+  .tb-right {
+    gap: 4px;
+  }
+
+  .streak-pill {
+    margin-right: 4px;
+  }
+
+  .tb-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    color: rgba(90, 122, 90, 0.75);
+  }
+
+  .tb-icon[aria-expanded='true'] {
+    background: #d4e8d4;
+    color: #3e6040;
+  }
+}

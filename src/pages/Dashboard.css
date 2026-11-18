@@ -1,0 +1,289 @@
+.dashboard-page {
+  animation: page-in 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Three columns filling the page height, each scrolling on its own like the
+   other pages: Today inside its list, the centre and right columns as a
+   whole. The page itself never scrolls, so Today stays put. */
+.dash-app {
+  display: grid;
+  grid-template-columns: 280px 1fr 260px;
+  grid-template-rows: minmax(0, 1fr);
+  gap: 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  height: 100%;
+}
+
+/* Centre panel. The negative margin and matching padding give the cards'
+   shadows room, so scrolling doesn't clip them at the column edges. */
+.centre-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  margin: 0 -12px;
+  padding: 0 12px 24px;
+}
+
+/* Cards keep their full height and the column scrolls instead; without
+   this they shrink to fit and get cut off (Next Step first, as it clips
+   its own overflow). */
+.centre-panel > * {
+  flex-shrink: 0;
+}
+
+/* Companion area */
+.companion-area {
+  text-align: center;
+  padding: 16px 0 2px;
+}
+
+/* Progress section */
+.progress-section {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-soft);
+  padding: 22px 28px;
+}
+
+.progress-section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress-count {
+  font-size: 12px;
+  color: var(--muted-text);
+}
+
+.progress-bar-wrap {
+  height: 6px;
+  background: rgba(138, 171, 138, 0.15);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 12px 0 8px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--sage-light), var(--sage-deep));
+  transition: width 0.6s ease;
+}
+
+.progress-dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.progress-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(138, 171, 138, 0.25);
+  transition: all 0.3s;
+}
+
+.progress-dot.done-dot { background: var(--sage); }
+.progress-dot.cur-dot  { background: var(--sage-deep); transform: scale(1.3); }
+
+/* Clickable step list under the progress bar */
+.progress-steps-list {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ps-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+
+.ps-item:hover {
+  background: var(--sage-mist);
+}
+
+.ps-item.ps-current {
+  background: linear-gradient(135deg, rgba(138, 171, 138, 0.15), rgba(138, 171, 138, 0.07));
+  border-color: rgba(138, 171, 138, 0.28);
+}
+
+.ps-item.ps-done {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.ps-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(138, 171, 138, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted-text);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.ps-num:hover {
+  border-color: var(--sage);
+  background: var(--sage-mist);
+}
+
+.ps-item.ps-done .ps-num {
+  cursor: pointer;
+}
+
+.ps-item.ps-done .ps-num {
+  background: var(--sage);
+  border-color: var(--sage);
+  color: white;
+}
+
+.ps-item.ps-current .ps-num {
+  background: var(--sage-deep);
+  border-color: var(--sage-deep);
+  color: white;
+}
+
+.ps-title {
+  flex: 1;
+  font-size: 12.5px;
+  color: var(--soft-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ps-item.ps-current .ps-title {
+  color: var(--dark-text);
+  font-weight: 500;
+}
+
+.ps-item.ps-done .ps-title {
+  text-decoration: line-through;
+}
+
+.ps-time {
+  font-size: 10.5px;
+  color: var(--muted-text);
+  flex-shrink: 0;
+}
+
+/* Encourage banner */
+.encourage-banner {
+  display: none;
+  background: linear-gradient(135deg, rgba(138, 171, 138, 0.12), rgba(138, 171, 138, 0.06));
+  border: 1px solid rgba(138, 171, 138, 0.2);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--soft-text);
+  line-height: 1.5;
+}
+
+.encourage-banner.visible { display: block; }
+
+/* Nudge card */
+/* ── Small screens ──
+   Below 1024px: one column, in this order — Today and Mood side by side
+   (both folded to one-line toggles), "Add a task" (always visible), Next
+   Step, Task progress, streak, focus today, Sage's nudge. Whichever toggle
+   is open takes the full width. All three columns dissolve
+   (display: contents) so their cards can be ordered together.
+   Below 640px: tighter cards. */
+@media (max-width: 1023px) {
+  .dash-app {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: none;
+    gap: 16px 12px;
+    align-items: start;
+    max-width: 680px;
+    height: auto;
+  }
+
+  .left-panel,
+  .centre-panel,
+  .right-panel {
+    display: contents;
+  }
+
+  /* Everything is full width except the two toggles on the top row. */
+  .left-panel > *,
+  .centre-panel > *,
+  .right-panel > * {
+    grid-column: 1 / -1;
+  }
+
+  .left-panel > .panel      { order: 1; grid-column: 1; align-self: stretch; }
+  .mp-mood                  { order: 2; grid-column: 2; align-self: stretch; }
+  .left-panel > .add-task-row { order: 3; margin: 0; min-height: 48px; }
+  .next-step-card           { order: 4; }
+  .progress-section         { order: 5; }
+  .mp-streak                { order: 6; }
+  .mp-focus                 { order: 7; }
+  .mp-nudge                 { order: 8; }
+
+  /* An open toggle needs the room; the other drops to its own row. */
+  .dash-app:has(.today-toggle[aria-expanded='true']) .left-panel > .panel,
+  .dash-app:has(.today-toggle[aria-expanded='true']) .mp-mood,
+  .mp-mood.open {
+    grid-column: 1 / -1;
+  }
+
+  /* The two toggles match in height, content centred. */
+  .left-panel > .panel,
+  .mp-mood {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 14px 18px;
+  }
+}
+
+@media (max-width: 639px) {
+  .progress-section {
+    padding: 18px 20px;
+  }
+
+  .ps-item {
+    min-height: 44px;
+  }
+}
+
+@media (hover: none) {
+  .ps-num {
+    position: relative;
+  }
+
+  .ps-num::after {
+    content: '';
+    position: absolute;
+    inset: -12px;
+  }
+}

@@ -1,0 +1,107 @@
+/* One timer length on the Focus page: a slider, or on touch screens a
+   − / + stepper (see DurationControl.jsx). */
+.ts-row {
+  margin-top: 12px;
+}
+
+.ts-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--soft-text);
+  margin-bottom: 8px;
+}
+
+.ts-value {
+  color: var(--sage-deep);
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.ts-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(138, 171, 138, 0.25);
+  outline: none;
+  cursor: pointer;
+}
+
+.ts-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--sage-deep);
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(90, 122, 90, 0.4);
+  cursor: pointer;
+}
+
+.ts-slider:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px var(--sage-pale), 0 0 0 5px var(--sage);
+}
+
+.ts-slider:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 3px var(--sage-pale), 0 0 0 5px var(--sage);
+}
+
+.ts-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--sage-deep);
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(90, 122, 90, 0.4);
+  cursor: pointer;
+}
+
+.ts-note {
+  font-size: 10.5px;
+  color: var(--muted-text);
+  margin-top: 6px;
+}
+
+/* The stepper: two finger-sized buttons either side of the value. */
+.ts-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.ts-stepper .ts-value {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ts-step {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(138, 171, 138, 0.3);
+  background: #fff;
+  color: var(--sage-deep);
+  font-size: 20px;
+  line-height: 1;
+  transition: var(--transition-fast);
+}
+
+.ts-step:active:not(:disabled) {
+  background: var(--sage-pale);
+}
+
+.ts-step:disabled {
+  opacity: 0.4;
+  cursor: default;
+}

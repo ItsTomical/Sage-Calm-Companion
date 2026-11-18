@@ -1,0 +1,239 @@
+/* ============================================================
+   CALM COMPANION: Global Stylesheet
+   Imports variables. Contains resets, body, shared utilities.
+   ============================================================ */
+
+@import "./variables.css";
+
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Body ── */
+body {
+  font-family: var(--font-sans);
+  background: var(--warm-white);
+  color: var(--dark-text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 80% 60% at 20% 10%,
+      rgba(138, 171, 138, 0.13) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 70% at 85% 80%,
+      rgba(200, 221, 232, 0.15) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 50% 50% at 55% 45%,
+      rgba(232, 213, 200, 0.1) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Typography Defaults ── */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--dark-text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+}
+
+textarea,
+input {
+  font-family: var(--font-sans);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(138, 171, 138, 0.3);
+  border-radius: 3px;
+}
+
+/* ── Keyboard focus ──
+   Shown only when navigating by keyboard (not on mouse clicks), in the app's
+   own colour, so there is always a visible answer to "where am I?". */
+:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 2px;
+}
+
+/* ── Shared Utility Classes ── */
+
+/* The column pages (Tasks, Focus, Reflect, Progress) sit in one rounded
+   frame inside the page gutter, so their edges line up with the
+   dashboard's cards instead of running into the topbar and screen edge. */
+.page-frame {
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  margin-bottom: 14px;
+  opacity: 0.75;
+}
+
+/* ── Global Animations ── */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes glow-p {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.18);
+  }
+}
+
+@keyframes blink-d {
+  0%,
+  90%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.07);
+  }
+}
+
+@keyframes sage-speak {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  40% {
+    transform: translateY(-4px) scale(1.06);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(0.87);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.13);
+    opacity: 1;
+  }
+}
+
+@keyframes dot-p {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Sage Float Utility ── */
+.sage-float {
+  animation: float 3.6s ease-in-out infinite;
+}
+
+.sage-speaking {
+  animation: sage-speak 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+
+/* ── Small screens ──
+   Below 1024px: the page fits the visible screen, not the one behind the
+   browser's toolbars. Fields are 16px so focusing one doesn't zoom.
+   Below 640px: room for the notch and the gesture bar. */
+@media (max-width: 1023px) {
+  body {
+    min-height: 100dvh;
+  }
+
+  /* A floor for every field in the app, so new ones are covered too. */
+  input:not([type="range"]),
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  /* The column pages stack into separate cards, so the shared frame
+     around them goes. */
+  .page-frame {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+  }
+}

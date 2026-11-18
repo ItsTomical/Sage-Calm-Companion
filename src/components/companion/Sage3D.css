@@ -1,0 +1,55 @@
+/* Sage stands in front of the disc rather than being cropped into it.
+   The circle is a backdrop behind her, smaller than the canvas and sitting
+   low, so her leaves rise clear above its edge and she reads as a figure
+   standing in front of a shape instead of a picture inside one. */
+.sage-3d {
+  position: relative;
+  flex-shrink: 0;
+  /* The companion is dragged by its container, so nothing here should
+     swallow the pointer events that start a drag. */
+  pointer-events: none;
+}
+
+/* The backdrop. Bottom-aligned and narrower than the frame, which is what
+   leaves room for her to overlap its top edge. */
+.sage-3d::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 78%;
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sage), var(--sage-deep));
+  box-shadow: 0 4px 18px rgba(90, 122, 90, 0.22);
+  z-index: 0;
+}
+
+/* The contact shadow is cast in the scene rather than faked here, so it
+   follows her actual silhouette. */
+
+.sage-3d canvas {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Only Sage drifts — the disc and its shadow stay put. Moving the backdrop
+   with her would read as the whole badge wobbling rather than as a character
+   shifting her weight in front of it. */
+.sage-3d.sage-float {
+  animation: none;
+}
+
+.sage-3d.sage-float canvas {
+  animation: float 3.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sage-3d.sage-float canvas {
+    animation: none;
+  }
+}

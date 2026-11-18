@@ -1,0 +1,99 @@
+.ai-input-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-soft);
+  padding: 22px 26px;
+  margin-bottom: 22px;
+}
+
+.ai-input-label {
+  font-size: 12px;
+  color: var(--muted-text);
+  margin-bottom: 10px;
+}
+
+.ai-input-ta {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-serif);
+  font-size: 18px;
+  color: var(--dark-text);
+  resize: none;
+  line-height: 1.45;
+}
+
+.ai-input-ta::placeholder {
+  color: var(--sage-light);
+}
+
+.ai-input-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(138, 171, 138, 0.15);
+}
+
+.ai-note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--sage-deep);
+  opacity: 0.8;
+}
+
+.ai-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--sage);
+  animation: dot-p 2s ease-in-out infinite;
+}
+
+.break-btn {
+  background: var(--sage-deep);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 9px 20px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.break-btn:hover:not(:disabled) {
+  background: #4a6a4a;
+  transform: translateY(-1px);
+}
+
+.break-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* The textarea has no border of its own, so the card shows where focus is. */
+.ai-input-card:focus-within {
+  box-shadow: 0 0 0 2px var(--sage-light), var(--shadow-soft);
+}
+
+/* ── Small screens ──
+   Below 640px: "Break it down" keeps to one line; the note beside it gives
+   way instead. */
+@media (max-width: 639px) {
+  .ai-input-footer {
+    gap: 10px;
+  }
+
+  .break-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}

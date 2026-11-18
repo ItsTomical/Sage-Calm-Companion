@@ -1,0 +1,280 @@
+.tl-sidebar {
+  border-right: 1px solid rgba(138, 171, 138, 0.14);
+  background: rgba(250, 249, 246, 0.7);
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.tl-header {
+  flex-shrink: 0;
+}
+
+.tl-list {
+  overflow-y: auto;
+  min-height: 0;
+  flex: 1;
+  margin: 0 -6px;
+  padding: 0 6px;
+}
+
+.tl-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.tl-title {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--dark-text);
+}
+
+/* Count and add row match the dashboard's Today panel, so the two task
+   lists read as the same thing in two places. */
+.tl-count {
+  background: var(--sage-mist);
+  color: var(--sage-deep);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* The primary Button (see ui/Button.css), full width under the header —
+   the same as "Add a task" on the dashboard. */
+.tl-add-row {
+  flex-shrink: 0;
+  width: 100%;
+  margin: 0 0 14px;
+}
+
+.tl-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition);
+  margin-bottom: 4px;
+  border: 1px solid transparent;
+  position: relative;
+}
+
+.tl-item:hover {
+  background: var(--sage-mist);
+  border-color: rgba(138, 171, 138, 0.2);
+}
+
+.tl-item.tl-active {
+  background: linear-gradient(135deg, rgba(138, 171, 138, 0.15), rgba(138, 171, 138, 0.07));
+  border-color: rgba(138, 171, 138, 0.28);
+}
+
+.tl-item.tl-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 18%;
+  bottom: 18%;
+  width: 3px;
+  background: var(--sage);
+  border-radius: 0 3px 3px 0;
+}
+
+.tl-item.tl-done-item {
+  opacity: 0.4;
+}
+
+.tl-check {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 1.5px solid var(--sage-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: var(--transition);
+  background: white;
+}
+
+.tl-item.tl-done-item .tl-check {
+  background: var(--sage);
+  border-color: var(--sage);
+}
+
+.tl-check-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: white;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.tl-item.tl-done-item .tl-check-dot {
+  opacity: 1;
+}
+
+.tl-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.tl-name {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--soft-text);
+  line-height: 1.35;
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tl-item.tl-done-item .tl-name {
+  text-decoration: line-through;
+  color: var(--muted-text);
+}
+
+.tl-item.tl-active .tl-name {
+  color: var(--dark-text);
+  font-weight: 500;
+}
+
+.tl-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tl-time,
+.tl-steps-count {
+  font-size: 10px;
+  color: var(--muted-text);
+}
+
+.tl-delete {
+  opacity: 0;
+  background: none;
+  border: none;
+  color: var(--muted-text);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+  flex-shrink: 0;
+  transition: var(--transition);
+  margin-left: auto;
+}
+
+.tl-item:hover .tl-delete,
+.tl-item:focus-within .tl-delete {
+  opacity: 1;
+}
+
+.tl-delete:hover {
+  color: #c0392b;
+}
+
+.tl-check {
+  cursor: pointer;
+}
+
+.tl-check:hover {
+  border-color: var(--sage);
+  background: var(--sage-mist);
+}
+
+.tl-active-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  background: rgba(90, 122, 90, 0.1);
+  border-radius: 10px;
+  padding: 1px 6px;
+  margin-left: 4px;
+}
+
+/* ── Small screens ──
+   Below 1024px the sidebar becomes a card like Today on the dashboard,
+   and its header folds the list away (see TaskSidebar.jsx).
+   Touch: delete always shown, finger-sized tick circles. */
+@media (max-width: 1023px) {
+  .tl-sidebar {
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-xl);
+    background: var(--card-bg);
+    box-shadow: var(--shadow-soft);
+    padding: 16px 18px;
+    overflow: visible;
+  }
+
+  .tl-list {
+    overflow: visible;
+  }
+
+  .tl-toggle {
+    width: 100%;
+    min-height: 44px;
+    gap: 10px;
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    text-align: left;
+  }
+
+  .tl-toggle .tl-title {
+    flex: 1;
+  }
+
+  /* Folded, the card is just the header and the add button. */
+  .tl-toggle[aria-expanded='false'] {
+    margin-bottom: 12px;
+  }
+
+  .tl-toggle[aria-expanded='false'] ~ .tl-add-row {
+    margin-bottom: 0;
+  }
+
+  .tl-chevron {
+    color: var(--sage-deep);
+    transition: transform 0.2s ease;
+  }
+
+  .tl-toggle[aria-expanded='true'] .tl-chevron {
+    transform: rotate(180deg);
+  }
+
+  .tl-name {
+    white-space: normal;
+  }
+}
+
+@media (hover: none) {
+  .tl-delete {
+    opacity: 1;
+    min-width: 44px;
+    min-height: 44px;
+    margin: -12px -12px -12px auto;
+  }
+
+  .tl-check {
+    position: relative;
+  }
+
+  .tl-check::after {
+    content: '';
+    position: absolute;
+    inset: -12px;
+  }
+}

@@ -1,0 +1,227 @@
+.next-step-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-card);
+  padding: 28px 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.next-step-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--sage-light), var(--sage), var(--sage-light));
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.step-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--sage-deep);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.step-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted-text);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.step-time-chip {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--muted-text);
+}
+
+.step-task-ctx {
+  font-size: 13px;
+  color: var(--muted-text);
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.step-title {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--dark-text);
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+
+.step-desc {
+  font-size: 14px;
+  color: var(--soft-text);
+  line-height: 1.65;
+  margin-bottom: 24px;
+}
+
+.step-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.not-ready-link {
+  font-size: 13px;
+  color: var(--muted-text);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: var(--font-sans);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s;
+}
+
+.not-ready-link:hover {
+  color: var(--soft-text);
+}
+
+.sage-not-ready {
+  margin-top: 16px;
+  padding: 16px 20px;
+  background: var(--sage-mist);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(138, 171, 138, 0.2);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.snr-msg {
+  font-size: 13px;
+  color: var(--soft-text);
+  line-height: 1.55;
+}
+
+.snr-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.snr-btn {
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(138, 171, 138, 0.3);
+  background: white;
+  color: var(--sage-deep);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: var(--transition);
+}
+
+.snr-btn:hover {
+  background: var(--sage-pale);
+}
+
+.snr-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.snr-btn.snr-primary {
+  background: var(--sage-deep);
+  color: #fff;
+  border-color: var(--sage-deep);
+  font-weight: 500;
+}
+
+.snr-btn.snr-primary:hover {
+  background: #4a6a4a;
+}
+
+.next-step-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding: 32px;
+}
+
+.empty-step-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--dark-text);
+}
+
+.empty-step-desc {
+  font-size: 13px;
+  color: var(--muted-text);
+  line-height: 1.55;
+  max-width: 240px;
+}
+
+/* ── Small screens ──
+   Below 640px: less padding and a smaller title so the step fits on one
+   screen. The main button runs full width with "Not ready?" centred under
+   it, and the "not ready" choices stack full width, gentlest first. */
+@media (max-width: 639px) {
+  .next-step-card {
+    padding: 22px 20px;
+  }
+
+  .step-title {
+    font-size: 23px;
+  }
+
+  .step-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+  }
+
+  .step-actions .btn {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .not-ready-link {
+    align-self: center;
+    min-height: 44px;
+    padding: 0 12px;
+  }
+
+  .sage-not-ready {
+    padding: 14px 16px;
+  }
+
+  .snr-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .snr-btn {
+    min-height: 44px;
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,36 @@
+.stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-soft);
+  padding: 24px;
+  text-align: center;
+}
+
+.stat-ico {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.stat-num {
+  font-family: var(--font-serif);
+  font-size: 40px;
+  font-weight: 500;
+  color: var(--dark-text);
+  line-height: 1;
+}
+
+.stat-lbl {
+  font-size: 13px;
+  color: var(--soft-text);
+  margin-top: 4px;
+}
+
+.stat-sub {
+  font-size: 11px;
+  color: var(--muted-text);
+  margin-top: 5px;
+}

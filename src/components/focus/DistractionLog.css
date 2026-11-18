@@ -1,0 +1,148 @@
+/* The distraction log on the Focus page. */
+.distraction-log {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.distract-note {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--dark-text);
+}
+
+.distract-sub {
+  font-size: 12px;
+  color: var(--muted-text);
+  line-height: 1.5;
+}
+
+.distract-ta {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px;
+  border: 1px solid rgba(138, 171, 138, 0.22);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--dark-text);
+  background: rgba(255, 255, 255, 0.6);
+  outline: none;
+  resize: none;
+  line-height: 1.55;
+}
+
+.distract-ta:focus {
+  border-color: var(--sage);
+}
+
+.distract-ta::placeholder { color: var(--sage-light); }
+
+.log-btn {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--sage-deep);
+  background: var(--sage-mist);
+  border: 1px solid rgba(138, 171, 138, 0.3);
+  border-radius: 20px;
+  padding: 7px 16px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: var(--transition);
+}
+
+.log-btn:hover { background: var(--sage-pale); }
+
+/* What's been logged for the current step, newest first. */
+.dl-list {
+  margin-top: 8px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(138, 171, 138, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dl-list-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--sage-deep);
+}
+
+.dl-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(138, 171, 138, 0.15);
+}
+
+.dl-time {
+  flex-shrink: 0;
+  font-size: 10.5px;
+  color: var(--muted-text);
+  padding-top: 1px;
+  font-variant-numeric: tabular-nums;
+}
+
+.dl-text {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  color: var(--soft-text);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.dl-remove {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--muted-text);
+  font-size: 15px;
+  line-height: 1;
+  padding: 0 2px;
+}
+
+.dl-remove:hover {
+  color: #c0392b;
+}
+
+.dl-none {
+  font-size: 12px;
+  color: var(--muted-text);
+  line-height: 1.5;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  background: var(--sage-mist);
+}
+
+/* ── Small screens ──
+   Below 1024px the log is a card of its own in the stacked Focus page, with
+   a finger-sized button.
+   Touch: finger-sized remove buttons. */
+@media (max-width: 1023px) {
+  .distraction-log {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: 18px;
+  }
+
+  .log-btn {
+    min-height: 44px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media (hover: none) {
+  .dl-remove {
+    min-width: 44px;
+    min-height: 44px;
+    margin: -12px -10px -12px 0;
+  }
+}

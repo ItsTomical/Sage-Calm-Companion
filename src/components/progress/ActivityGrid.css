@@ -1,0 +1,174 @@
+.p-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-soft);
+  padding: 22px;
+}
+
+.act-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.p-card-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  opacity: 0.75;
+}
+
+/* Month navigation */
+.act-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.act-range {
+  font-size: 11px;
+  color: var(--muted-text);
+  min-width: 108px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.act-arrow {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--sage-light);
+  background: var(--sage-pale);
+  color: var(--sage-deep);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.act-arrow:hover:not(:disabled) {
+  background: var(--sage-light);
+  border-color: var(--sage);
+}
+
+.act-arrow:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 2px;
+}
+
+/* Stops rather than disappearing, so the edge of the range is legible. */
+.act-arrow:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Three months side by side, each sharing the width equally. */
+.act-months {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.act-month-name {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--soft-text);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+/* The current month is marked by weight rather than a border, so it reads as
+   "you are here" without boxing it off from the months either side. */
+.act-month-now .act-month-name {
+  color: var(--sage-deep);
+  font-weight: 600;
+}
+
+.act-dow,
+.act-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.act-dow {
+  margin-bottom: 4px;
+}
+
+.act-dow span {
+  font-size: 8px;
+  color: var(--muted-text);
+  text-align: center;
+  font-weight: 500;
+}
+
+.act-d {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  min-width: 0;
+}
+
+.act-blank {
+  background: none;
+}
+
+.act-d.l0 { background: rgba(138, 171, 138, 0.1); }
+.act-d.l1 { background: rgba(138, 171, 138, 0.25); }
+.act-d.l2 { background: rgba(138, 171, 138, 0.5); }
+.act-d.l3 { background: var(--sage); }
+.act-d.l4 { background: var(--sage-deep); }
+
+/* Days that haven't happened sit lighter than an empty past day, so the rest
+   of the month doesn't read as days already missed. */
+.act-d.act-future {
+  background: rgba(138, 171, 138, 0.04);
+}
+
+.act-d.act-today {
+  box-shadow: 0 0 0 1.5px var(--sage-deep);
+}
+
+.act-legend {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 14px;
+  font-size: 9px;
+  color: var(--muted-text);
+}
+
+/* The legend swatches size themselves, unlike the calendar cells which
+   stretch to fill their column. */
+.act-legend .act-d {
+  width: 11px;
+  height: 11px;
+  aspect-ratio: auto;
+}
+
+/* ── Small screens ──
+   Below 640px: one month at a time (the middle of the three); the arrows
+   still step through the months.
+   Touch: finger-sized arrows. */
+@media (max-width: 639px) {
+  .act-months {
+    grid-template-columns: 1fr;
+  }
+
+  .act-month:not(:nth-child(2)) {
+    display: none;
+  }
+}
+
+@media (hover: none) {
+  .act-arrow {
+    width: 44px;
+    height: 44px;
+  }
+}

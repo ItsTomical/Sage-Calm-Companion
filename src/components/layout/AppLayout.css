@@ -1,0 +1,79 @@
+.shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.main-area {
+  display: grid;
+  grid-template-rows: var(--topbar-height) 1fr;
+  overflow: hidden;
+}
+
+.pages {
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+  padding: var(--page-gutter);
+  /* Matches Sage's own move, so the page slides over as she changes side. */
+  transition: padding 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Only the side she is on makes room for her. Hidden in Settings, neither
+   does, and the page keeps an even gutter all round. */
+.shell[data-sage-side='left'] .pages {
+  padding-left: var(--sage-rail);
+}
+
+.shell[data-sage-side='right'] .pages {
+  padding-right: var(--sage-rail);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pages {
+    transition: none;
+  }
+}
+
+/* ── Small screens ──
+   Below 1024px: the side rail becomes a band along the bottom of the page
+   (--sage-band), where Sage sits and talks. Pages scroll above it.
+   Below 640px: the sidebar moves under the page as a tab bar. */
+@media (max-width: 1023px) {
+  .shell {
+    height: 100dvh;
+  }
+
+  .shell .pages,
+  .shell[data-sage-side] .pages {
+    padding: 16px 16px var(--sage-band);
+  }
+
+  /* Sage hidden in Settings: no band to make room for. */
+  .shell:not([data-sage-side]) .pages {
+    padding-bottom: 16px;
+  }
+}
+
+@media (max-width: 639px) {
+  .shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+  }
+
+  .main-area {
+    grid-row: 1;
+    grid-column: 1;
+    min-height: 0;
+    grid-template-rows: calc(var(--topbar-height) + env(safe-area-inset-top)) 1fr;
+  }
+
+  .shell .pages,
+  .shell[data-sage-side] .pages {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+}

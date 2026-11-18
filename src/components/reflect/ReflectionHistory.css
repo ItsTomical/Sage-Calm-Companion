@@ -1,0 +1,204 @@
+.past-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-soft);
+  padding: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
+}
+
+.past-card > .section-label {
+  flex-shrink: 0;
+}
+
+.ref-scroll {
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* Before anything has been saved, so the card isn't an empty box. */
+.ref-empty {
+  margin: 14px 0 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted-text);
+  font-style: italic;
+}
+
+.ref-entry {
+  display: flex;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(138, 171, 138, 0.1);
+  position: relative;
+}
+
+/* Edit and delete stay hidden until the row is hovered, like task rows. */
+.ref-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  align-self: flex-start;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.ref-entry:hover .ref-actions,
+.ref-entry:focus-within .ref-actions {
+  opacity: 1;
+}
+
+.ref-delete {
+  background: none;
+  border: none;
+  color: var(--muted-text);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.ref-delete:hover {
+  color: #c0392b;
+}
+
+/* Inline edit mode */
+.ref-entry.ref-editing {
+  background: rgba(238, 245, 238, 0.45);
+  border-radius: var(--radius-md);
+  margin: 0 -10px;
+  padding: 13px 10px;
+}
+
+.ref-mood-edit {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.ref-mood-opt {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 3px 5px;
+  line-height: 0;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.ref-mood-opt img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  opacity: 0.5;
+  transition: var(--transition);
+}
+
+.ref-mood-opt:hover img {
+  opacity: 0.85;
+}
+
+.ref-mood-opt.sel {
+  border-color: rgba(138, 171, 138, 0.45);
+  background: var(--sage-mist);
+}
+
+.ref-mood-opt.sel img {
+  opacity: 1;
+}
+
+.ref-entry:last-child {
+  border-bottom: none;
+}
+
+.ref-date-col {
+  flex-shrink: 0;
+  text-align: center;
+  min-width: 36px;
+}
+
+.ref-day {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--dark-text);
+}
+
+.ref-mon {
+  font-size: 9px;
+  color: var(--muted-text);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.ref-body {
+  flex: 1;
+}
+
+.ref-mood-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 3px;
+}
+
+.ref-mood-em {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+}
+
+.ref-mood-lbl {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--soft-text);
+}
+
+.ref-note-text {
+  font-size: 12px;
+  color: var(--muted-text);
+  line-height: 1.55;
+}
+
+/* The prompt an entry was written to, quietly above the answer. */
+.ref-prompt {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--muted-text);
+  line-height: 1.55;
+  margin-bottom: 2px;
+}
+
+.ref-editing .ref-prompt {
+  margin-bottom: 6px;
+}
+
+/* ── Small screens ──
+   Below 640px: less padding.
+   Touch: edit and delete are always shown, at finger size. */
+@media (max-width: 639px) {
+  .past-card {
+    padding: 20px 18px;
+  }
+}
+
+@media (hover: none) {
+  .ref-actions {
+    opacity: 1;
+  }
+
+  .ref-actions .step-edit-btn,
+  .ref-delete {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}

@@ -1,0 +1,51 @@
+/* Sits above the page and the modal, but below the floating Sage, so she
+   stays visible while it falls around her. Never intercepts clicks. */
+.celebration {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 900;
+}
+
+.cf-piece {
+  position: absolute;
+  top: -24px;
+  border-radius: 2px;
+  opacity: 0;
+  animation-name: cf-fall;
+  animation-timing-function: cubic-bezier(0.32, 0.55, 0.48, 1);
+  animation-fill-mode: forwards;
+  will-change: transform, opacity;
+}
+
+.cf-round {
+  border-radius: 50%;
+}
+
+/* Falls, drifts sideways and turns over, fading out before it lands so
+   nothing piles up at the bottom of the screen. */
+@keyframes cf-fall {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  70% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(var(--drift), 84vh, 0) rotate(var(--spin));
+    opacity: 0;
+  }
+}
+
+/* Belt and braces: the component already refuses to render under reduced
+   motion, but this covers a preference changed mid-animation. */
+@media (prefers-reduced-motion: reduce) {
+  .celebration {
+    display: none;
+  }
+}

@@ -1,0 +1,234 @@
+/* The square the exercise lives in. The ring sits just outside the circle's
+   full size, so there's always a calm target to breathe towards, and fills
+   clockwise to show how much of the chosen length is left. */
+.bc-stage {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bc-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg); /* start filling from 12 o'clock */
+  overflow: visible;
+  z-index: 1;
+}
+
+.bc-ring circle {
+  fill: none;
+  stroke-width: 2;
+}
+
+.bc-ring-track {
+  stroke: rgba(138, 171, 138, 0.25);
+}
+
+.bc-ring-fill {
+  stroke: var(--sage);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+}
+
+/* The breathing circle. Small at rest; .big on the in-breath and the hold
+   after it. The transition is one phase long (4s), so it grows and shrinks
+   for exactly as long as the words say to breathe. */
+.bc-circle {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle at center, rgba(255, 255, 255, 0.07) 0 2px, transparent 2px 7px),
+    radial-gradient(circle at 35% 30%, var(--sage-light), var(--sage) 70%);
+  box-shadow: 0 6px 20px rgba(90, 122, 90, 0.18);
+  transform: scale(0.55);
+  transition:
+    transform 4s ease-in-out,
+    box-shadow 4s ease-in-out;
+}
+
+.bc-circle.big {
+  transform: scale(0.9);
+  box-shadow:
+    0 0 40px 6px rgba(138, 171, 138, 0.35),
+    0 10px 30px rgba(90, 122, 90, 0.2);
+}
+
+/* The words sit above the circle rather than inside it, so they never
+   scale or blur. Longer lines ("Ready when you are") reach past the small
+   circle onto the card, so they're dark, with a soft light glow that keeps
+   them clear over the green too. */
+.bc-words {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  /* Narrow enough to stay inside the circle at its smallest, so a longer
+     line wraps onto two instead of spilling past its edge. */
+  max-width: 50%;
+  text-align: center;
+  color: var(--dark-text);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  pointer-events: none;
+}
+
+.bc-label {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 17px;
+  line-height: 1.2;
+  animation: bc-fade 0.3s ease;
+}
+
+.bc-count {
+  font-size: 13px;
+  opacity: 0.85;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Choosing how long: three equal parts of one pill. */
+.bc-lengths {
+  display: flex;
+  gap: 4px;
+  max-width: 320px;
+  margin: 0 auto 24px;
+  padding: 4px;
+  border-radius: 16px;
+  background: rgba(138, 171, 138, 0.1);
+}
+
+.bc-length {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding: 6px 4px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: none;
+  color: var(--soft-text);
+  transition: var(--transition-fast);
+}
+
+.bc-length:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.bc-length[aria-checked='true'] {
+  background: #fff;
+  border-color: var(--sage);
+  color: var(--sage-deep);
+  box-shadow: 0 2px 8px rgba(90, 122, 90, 0.12);
+}
+
+.bc-length-min {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.bc-length-label {
+  font-size: 11px;
+  color: var(--muted-text);
+  white-space: nowrap;
+}
+
+/* Before Begin: a gentler, smaller line in the resting circle. */
+.bc-label-small {
+  font-size: 15px;
+}
+
+/* Fixed once the countdown starts: the choice stays visible but quiet. */
+.bc-lengths.locked .bc-length {
+  cursor: default;
+}
+
+.bc-lengths.locked .bc-length:not([aria-checked='true']) {
+  opacity: 0.45;
+}
+
+.bc-lengths.locked .bc-length:hover:not([aria-checked='true']) {
+  background: none;
+}
+
+/* Begin: the main action while choosing, full width where "I feel ready"
+   sits once it's finished. The quiet "I feel ready" follows below it. */
+.bc-begin {
+  margin: 0 0 10px;
+}
+
+.bc-begin .btn {
+  width: 100%;
+}
+
+@keyframes bc-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* No growing and shrinking. The circle stays at a middle size and its glow
+   brightens for the in-breath and fades for the out-breath; the words and
+   count still lead each phase. */
+@media (prefers-reduced-motion: reduce) {
+  .bc-circle,
+  .bc-circle.big {
+    transform: scale(0.72);
+  }
+
+  .bc-circle {
+    opacity: 0.75;
+    transition:
+      opacity 0.6s ease,
+      box-shadow 0.6s ease;
+  }
+
+  .bc-circle.big {
+    opacity: 1;
+  }
+
+  .bc-label {
+    animation: none;
+  }
+}
+
+/* ── Small screens ──
+   Below 640px: a smaller stage and tighter length picker so the card fits
+   with its buttons. */
+@media (max-width: 639px) {
+  .bc-stage {
+    width: 160px;
+    height: 160px;
+  }
+
+  /* Sized so every line stays inside the smaller circle. */
+  .bc-label,
+  .bc-label-small {
+    font-size: 14px;
+  }
+
+  .bc-count {
+    font-size: 12px;
+  }
+
+  .bc-lengths {
+    margin-bottom: 20px;
+  }
+
+  .bc-length {
+    padding: 6px 2px;
+  }
+
+  .bc-length-label {
+    font-size: 10.5px;
+  }
+}

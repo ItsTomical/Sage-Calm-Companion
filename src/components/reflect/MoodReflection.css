@@ -1,0 +1,178 @@
+.mood-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-soft);
+  padding: 26px;
+  flex-shrink: 0;
+}
+
+.mood-big-row {
+  display: flex;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+/* The faces are real buttons. The first five lines undo the browser's own
+   button styling (font, colour, centring, native look) so they look like
+   plain boxes; the rules after them still win. */
+.mood-opt {
+  appearance: none;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 8px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid rgba(138, 171, 138, 0.18);
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: var(--transition);
+  flex: 1;
+}
+
+.mood-opt:hover {
+  background: var(--sage-mist);
+  border-color: var(--sage);
+  transform: translateY(-2px);
+}
+
+.mood-opt.sel {
+  background: var(--sage-mist);
+  border-color: var(--sage);
+}
+
+.mo-em {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.mo-lbl {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted-text);
+}
+
+.ref-note-lbl {
+  font-size: 12px;
+  color: var(--muted-text);
+  margin-bottom: 8px;
+}
+
+/* The question above the note: the chosen prompt, or the general one. The
+   row adds nothing of its own when no prompt is chosen. */
+.ref-question {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.ref-question .ref-note-lbl {
+  margin-bottom: 0;
+}
+
+/* A chosen prompt reads as the question being asked, a touch firmer than the
+   general label. */
+.ref-question .ref-note-prompt {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--soft-text);
+}
+
+.ref-prompt-clear {
+  position: relative;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--muted-text);
+  font-size: 16px;
+  line-height: 1;
+  padding: 0 2px;
+  transition: var(--transition);
+}
+
+.ref-prompt-clear:hover {
+  color: var(--soft-text);
+}
+
+/* A larger target than the × itself, without pushing the note box down. */
+.ref-prompt-clear::after {
+  content: '';
+  position: absolute;
+  inset: -12px -12px -8px;
+}
+
+/* Shown only after someone tries to save without choosing a mood. Amber
+   rather than red: they have not done anything wrong, there is just one more
+   thing to pick. */
+.mood-hint {
+  font-size: 12px;
+  color: #a1741f;
+  background: rgba(212, 169, 106, 0.14);
+  border-radius: var(--radius-sm);
+  padding: 7px 11px;
+  margin-bottom: 14px;
+}
+
+.ref-ta {
+  width: 100%;
+  min-height: 90px;
+  padding: 12px;
+  border: 1px solid rgba(138, 171, 138, 0.2);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--dark-text);
+  background: rgba(255, 255, 255, 0.6);
+  outline: none;
+  resize: none;
+  line-height: 1.6;
+  transition: border-color 0.18s;
+}
+
+.ref-ta:focus {
+  border-color: var(--sage);
+}
+
+.ref-ta::placeholder {
+  color: var(--sage-light);
+}
+
+.save-ref-btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 13px;
+  background: var(--sage-deep);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.save-ref-btn:hover {
+  background: #4a6a4a;
+}
+
+/* ── Small screens ──
+   Below 640px: less padding so all five moods fit on one row. */
+@media (max-width: 639px) {
+  .mood-card {
+    padding: 20px 18px;
+  }
+
+  .mood-opt {
+    padding: 10px 4px;
+    min-width: 0;
+  }
+}

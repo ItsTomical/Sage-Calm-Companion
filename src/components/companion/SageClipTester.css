@@ -1,0 +1,143 @@
+/* Dev-only clip tester. Plain and compact on purpose: it's a tool, not part
+   of the app's design. Sits above everything at the top left, past the
+   sidebar, so it never covers the floating Sage. */
+.sct,
+.sct-tab {
+  position: fixed;
+  top: 72px;
+  left: 72px;
+  z-index: 3000;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+}
+
+.sct {
+  width: 300px;
+  max-height: calc(100vh - 96px);
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid #c9d6c9;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  color: #2d3a2d;
+}
+
+.sct-tab {
+  padding: 6px 10px;
+  border: 1px solid #c9d6c9;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.sct-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-bottom: 1px solid #e3ebe3;
+}
+
+.sct-dev {
+  flex: 1;
+  color: #b06a2b;
+}
+
+.sct-close {
+  border: none;
+  background: none;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.sct-now {
+  padding: 6px 10px;
+  background: #f3f7f3;
+  border-bottom: 1px solid #e3ebe3;
+}
+
+.sct-body {
+  overflow-y: auto;
+  padding: 4px 10px 8px;
+}
+
+.sct-group {
+  margin-top: 8px;
+}
+
+.sct-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #5a7a5a;
+}
+
+.sct-clips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.sct button {
+  font: inherit;
+  padding: 3px 7px;
+  border: 1px solid #c9d6c9;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.sct button:hover {
+  background: #eef4ee;
+}
+
+.sct button.on {
+  background: #5a7a5a;
+  border-color: #5a7a5a;
+  color: #fff;
+}
+
+.sct-chain {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.sct-chain-name {
+  width: 40px;
+}
+
+.sct-chain-clips {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+}
+
+.sct .sct-mini {
+  padding: 2px 5px;
+  color: #6b7b6b;
+}
+
+.sct-note {
+  margin: 0;
+  padding: 6px 10px 8px;
+  color: #7a857a;
+  border-top: 1px solid #e3ebe3;
+}
+
+/* ── Small screens ──
+   Below 640px: full width under the top bar. */
+@media (max-width: 639px) {
+  .sct {
+    left: 8px;
+    right: 8px;
+    width: auto;
+    max-height: 50vh;
+  }
+
+  .sct-tab {
+    left: 8px;
+  }
+}

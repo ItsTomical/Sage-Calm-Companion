@@ -1,0 +1,237 @@
+/* Above the floating companion (1000) and confetti (900), so nothing on the
+   page can be clicked or cover Sage's card while she is talking. */
+
+/* Catches every click so the page can't be changed mid-tour. Clear while a
+   spotlight is showing (the spotlight does the dimming), dim when the card
+   stands on its own. */
+.guide-catcher {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  background: transparent;
+  transition: background 0.3s ease;
+}
+
+.guide-catcher.dim {
+  background: rgba(46, 48, 40, 0.45);
+}
+
+/* The hole. Its enormous shadow is the dimmed page around it. */
+.guide-spot {
+  position: fixed;
+  z-index: 1100;
+  border-radius: var(--radius-md);
+  box-shadow:
+    0 0 0 2px rgba(138, 171, 138, 0.55),
+    0 0 0 9999px rgba(46, 48, 40, 0.45);
+  pointer-events: none;
+  transition:
+    top 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    left 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Sage's speech bubble: the same white, italic, sage-edged look as the
+   floating companion's, grown into a card. */
+.guide-card {
+  position: fixed;
+  z-index: 1110;
+  width: 340px;
+  max-width: calc(100vw - 32px);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: white;
+  border: 1px solid rgba(138, 171, 138, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px 14px 14px;
+  box-shadow: var(--shadow-card);
+  animation: guide-in 0.25s ease;
+}
+
+.guide-card.sheet {
+  left: 16px;
+  right: 16px;
+  width: auto;
+  max-width: none;
+}
+
+/* The tail, pointing back at whatever is spotlit. */
+.guide-card[class*='tail-']::before {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: white;
+  border: 1px solid rgba(138, 171, 138, 0.25);
+  transform: rotate(45deg);
+}
+
+.guide-card.tail-right::before {
+  left: -7px;
+  top: calc(var(--tail) - 6px);
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+
+.guide-card.tail-left::before {
+  right: -7px;
+  top: calc(var(--tail) - 6px);
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+
+.guide-card.tail-bottom::before {
+  top: -7px;
+  left: calc(var(--tail) - 6px);
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+}
+
+.guide-card.tail-top::before {
+  bottom: -7px;
+  left: calc(var(--tail) - 6px);
+  border-top-color: transparent;
+  border-left-color: transparent;
+}
+
+.guide-sage {
+  width: 56px;
+  min-height: 56px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guide-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.guide-title {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--dark-text);
+  margin-bottom: 6px;
+}
+
+.guide-body {
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--soft-text);
+}
+
+.guide-missing {
+  margin-top: 8px;
+  font-style: normal;
+  font-size: 12px;
+  color: var(--sage-deep);
+  background: var(--sage-mist);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+}
+
+.guide-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.guide-count {
+  font-size: 11px;
+  color: var(--muted-text);
+  white-space: nowrap;
+}
+
+.guide-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 12px;
+  color: var(--muted-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  margin-right: auto;
+}
+
+.guide-link:hover {
+  color: var(--soft-text);
+}
+
+.guide-btn {
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(138, 171, 138, 0.3);
+  background: white;
+  color: var(--sage-deep);
+  transition: var(--transition-fast);
+}
+
+.guide-btn:hover:not(:disabled) {
+  background: var(--sage-pale);
+}
+
+.guide-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.guide-btn.primary {
+  background: var(--sage-deep);
+  border-color: var(--sage-deep);
+  color: #fff;
+  font-weight: 500;
+}
+
+.guide-btn.primary:hover {
+  background: #4a6a4a;
+}
+
+.guide-card button:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 2px;
+}
+
+@keyframes guide-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guide-catcher,
+  .guide-spot {
+    transition: none;
+  }
+  .guide-card {
+    animation: none;
+  }
+}
+
+/* ── Small screens ──
+   Below 640px the card is a sheet across the top or bottom of the screen
+   (whichever is away from the target), clear of the notch and gesture bar. */
+@media (max-width: 639px) {
+  .guide-card.sheet-top {
+    top: calc(16px + env(safe-area-inset-top));
+  }
+
+  .guide-card.sheet-bottom {
+    bottom: calc(16px + env(safe-area-inset-bottom));
+  }
+
+  .guide-sage {
+    width: 44px;
+    min-height: 44px;
+  }
+
+  .guide-btn {
+    min-height: 44px;
+    padding: 8px 16px;
+  }
+}

@@ -1,0 +1,136 @@
+/* The writing area that takes over the Focus page's centre once the timer
+   starts. It grows to fill the space below the compact timer bar. */
+.work-notes {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 18px 20px;
+  animation: wn-in 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wn-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.wn-label {
+  margin-bottom: 4px;
+}
+
+.wn-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wn-status {
+  font-size: 11px;
+  color: var(--muted-text);
+}
+
+.wn-copy {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--sage-deep);
+  background: var(--sage-mist);
+  border: 1px solid rgba(138, 171, 138, 0.3);
+  border-radius: 20px;
+  padding: 4px 12px;
+  transition: var(--transition-fast);
+}
+
+.wn-copy:hover:not(:disabled) {
+  background: var(--sage-pale);
+}
+
+.wn-copy:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* In a step's pop-up (Tasks page), which has its own title: just the tools
+   and the box, no card around it. */
+.work-notes.compact {
+  flex: none;
+  padding: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
+  animation: none;
+}
+
+.work-notes.compact .wn-tools {
+  justify-content: flex-end;
+  margin: -6px 0 8px;
+}
+
+.work-notes.compact .wn-ta {
+  flex: none;
+  min-height: 160px;
+}
+
+.wn-step {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  color: var(--dark-text);
+  margin-bottom: 12px;
+}
+
+.wn-ta {
+  flex: 1;
+  min-height: 160px;
+  width: 100%;
+  padding: 14px;
+  border: 1px solid rgba(138, 171, 138, 0.22);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--dark-text);
+  resize: none;
+  outline: none;
+}
+
+.wn-ta:focus {
+  border-color: var(--sage);
+}
+
+.wn-ta::placeholder {
+  color: var(--sage-light);
+}
+
+@keyframes wn-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-notes {
+    animation: none;
+  }
+}
+
+/* ── Small screens ──
+   Below 1024px the page scrolls as one column, so the box has a set height
+   instead of filling the space. */
+@media (max-width: 1023px) {
+  .work-notes {
+    flex: none;
+  }
+
+  .wn-ta {
+    min-height: 240px;
+  }
+
+  .wn-copy {
+    min-height: 36px;
+    padding: 6px 14px;
+  }
+}

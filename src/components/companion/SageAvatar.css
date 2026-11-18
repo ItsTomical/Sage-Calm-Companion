@@ -1,0 +1,16 @@
+.companion-fig {
+  display: inline-block;
+  position: relative;
+}
+
+.companion-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(138, 171, 138, 0.15) 0%, transparent 70%);
+  animation: glow-p 3.6s ease-in-out infinite;
+}

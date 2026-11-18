@@ -1,0 +1,239 @@
+.reflect-page {
+  animation: page-in 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  height: 100%;
+  overflow: hidden;
+}
+
+.reflect-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr 220px;
+  height: 100%;
+}
+
+/* LEFT */
+.reflect-left {
+  border-right: 1px solid rgba(138, 171, 138, 0.14);
+  background: rgba(250, 249, 246, 0.7);
+  padding: 24px 18px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.reflect-companion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+.reflect-companion-msg {
+  font-size: 12px;
+  color: var(--soft-text);
+  font-style: italic;
+  line-height: 1.55;
+}
+
+/* Matches the Dashboard streak panel (.panel in Panel.css). The inner
+   pieces reuse .streak-display / .week-dot from MoodPanel.css so the two
+   cards cannot drift apart. */
+.streak-reflect-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-soft);
+  padding: 16px;
+}
+
+/* The Dashboard version sits in a 260px column; this one has roughly 150px,
+   so the dots size to the row rather than a fixed 28px and stay circular. */
+.streak-reflect-card .streak-display {
+  padding: 12px 14px;
+}
+
+.streak-reflect-card .week-row {
+  gap: 4px;
+}
+
+.streak-reflect-card .week-dot {
+  width: auto;
+  height: auto;
+  flex: 1;
+  aspect-ratio: 1;
+  font-size: 9px;
+}
+
+.mood-summary-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: var(--shadow-soft);
+}
+
+.mood-trend {
+  display: flex;
+  gap: 5px;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.mood-trend-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.mt-em   { width: 17px; height: 17px; object-fit: contain; }
+/* A day with no reflection: holds the icon's space without inventing a mood. */
+.mt-none { width: 17px; height: 17px; border-radius: 50%; background: rgba(138, 171, 138, 0.12); }
+.mt-day  { font-size: 9px; font-weight: 500; color: var(--muted-text); }
+.mt-day.mt-today { color: var(--sage-deep); font-weight: 600; }
+
+/* CENTRE */
+.reflect-centre {
+  padding: 28px 32px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.saved-banner {
+  background: linear-gradient(135deg, rgba(138, 171, 138, 0.15), rgba(138, 171, 138, 0.07));
+  border: 1px solid rgba(138, 171, 138, 0.25);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--sage-deep);
+  font-weight: 500;
+}
+
+/* RIGHT */
+.reflect-right {
+  border-left: 1px solid rgba(138, 171, 138, 0.14);
+  background: rgba(250, 249, 246, 0.7);
+  padding: 24px 18px;
+  overflow-y: auto;
+}
+
+.prompts-hint {
+  font-size: 12px;
+  color: var(--muted-text);
+  line-height: 1.5;
+  margin: -8px 0 8px;
+}
+
+.reflect-prompts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+/* The chips are real buttons. The first four lines undo the browser's own
+   button styling (font, centred text, native look) so they look like plain
+   boxes; the rules after them still win. They stay full
+   width because the column stretches its items. */
+.prompt-chip {
+  appearance: none;
+  margin: 0;
+  font: inherit;
+  text-align: inherit;
+  font-size: 12px;
+  color: var(--soft-text);
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(138, 171, 138, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 9px 12px;
+  cursor: pointer;
+  transition: var(--transition);
+  line-height: 1.4;
+}
+
+.prompt-chip:hover {
+  background: var(--sage-mist);
+  border-color: var(--sage);
+  transform: translateX(3px);
+}
+
+/* The prompt currently asked above the note, marked like the chosen mood. */
+.prompt-chip.sel {
+  background: var(--sage-mist);
+  border-color: var(--sage);
+}
+
+.sage-insight-card {
+  background: linear-gradient(135deg, rgba(138,171,138,0.1), rgba(200,221,232,0.1));
+  border: 1px solid rgba(138, 171, 138, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.si-emoji { width: 18px; height: 18px; object-fit: contain; flex-shrink: 0; }
+.si-text  { font-size: 12px; color: var(--soft-text); line-height: 1.6; font-style: italic; }
+
+/* ── Small screens ──
+   Below 1024px: one column — prompts (a row you can swipe), today's
+   reflection, Sage's insight, streak, this week's moods, then past
+   reflections. Prompts go first because tapping one sets the question
+   above the note below. The side columns dissolve (display: contents) so
+   their cards can be ordered with the centre. The prompts label and its
+   helper line share order 1 and keep their source order. */
+@media (max-width: 1023px) {
+  .reflect-page {
+    overflow-y: auto;
+  }
+
+  .reflect-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: auto;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .reflect-left,
+  .reflect-centre,
+  .reflect-right {
+    display: contents;
+  }
+
+  .reflect-right > .section-label:first-child       { order: 1; margin-bottom: -8px; }
+  .prompts-hint                                      { order: 1; margin: -2px 0 -8px; }
+  .reflect-prompts                                   { order: 2; }
+  .mood-card                                         { order: 3; }
+  .reflect-right > .section-label:not(:first-child) { order: 4; margin: 0 0 -8px !important; }
+  .sage-insight-card                                 { order: 5; }
+  .streak-reflect-card                               { order: 6; }
+  .mood-summary-card                                 { order: 7; }
+  .past-card                                         { order: 8; }
+
+  .reflect-prompts {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+
+  .reflect-prompts::-webkit-scrollbar {
+    display: none;
+  }
+
+  .prompt-chip {
+    flex: none;
+    white-space: nowrap;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+}

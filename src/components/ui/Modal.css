@@ -1,0 +1,129 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(46, 48, 40, 0.35);
+  backdrop-filter: blur(8px);
+  z-index: 500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay.active {
+  display: flex;
+}
+
+.intervention {
+  background: rgba(250, 249, 246, 0.96);
+  border-radius: var(--radius-xl);
+  padding: 40px 44px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+
+/* The corner × for any card shown in a Modal (same look as the Profile
+   modal's). */
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  min-width: 32px;
+  min-height: 32px;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 22px;
+  line-height: 1;
+  color: var(--muted-text);
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: var(--dark-text);
+}
+
+.intervention-companion {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.intervention-msg {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--dark-text);
+  margin-bottom: 28px;
+}
+
+.intervention-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-feel-ready {
+  background: var(--sage-deep);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 13px 28px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-feel-ready:hover {
+  background: #4a6a4a;
+}
+
+/* Quiet options, styled like "Not ready? Let Sage help": "I need a little
+   more time", and "I feel ready" while it isn't the main action. */
+.btn-more-time,
+.btn-feel-ready-quiet {
+  background: none;
+  border: none;
+  font-size: 13px;
+  color: var(--muted-text);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.btn-feel-ready-quiet {
+  align-self: center;
+  padding: 4px 12px;
+  transition: color 0.15s;
+}
+
+.btn-feel-ready-quiet:hover {
+  color: var(--soft-text);
+}
+
+/* ── Small screens ──
+   Below 640px: the breathing card keeps a margin and less padding.
+   Touch: a finger-sized close button. */
+@media (max-width: 639px) {
+  .intervention {
+    padding: 28px 20px;
+  }
+}
+
+@media (hover: none) {
+  .btn-feel-ready-quiet {
+    min-height: 44px;
+  }
+
+  .modal-close {
+    top: 8px;
+    right: 8px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+}

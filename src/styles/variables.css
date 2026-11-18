@@ -1,0 +1,83 @@
+/* ============================================================
+   CALM COMPANION: Design Tokens
+   All shared variables live here. Import into globals.css.
+
+   Screen sizes (CSS can't use variables in media queries, so these
+   numbers are written into each file's "Small screens" section; JS reads
+   them from utils/breakpoints.js — change both together):
+     Phone    max-width: 639px    bottom tab bar, single column
+     Tablet   max-width: 1023px   icon sidebar, single column
+     Desktop  1024px and up       full sidebar, three columns
+     Touch    hover: none         no hover, so nothing is hover-only
+   ============================================================ */
+
+:root {
+  /* ── Palette ── */
+  --sage: #8aab8a;
+  --sage-light: #b5cab5;
+  --sage-pale: #deeade;
+  --sage-mist: #eef5ee;
+  --sage-deep: #5a7a5a;
+  --cream: #f7f4ee;
+  --warm-white: #faf9f6;
+  --muted-text: #7a7a6e;
+  --soft-text: #5a5a52;
+  --dark-text: #2e3028;
+  --blush: #e8d5c8;
+  --dusty-rose: #c4a090;
+  --warm-amber: #d4a96a;
+  --sky-mist: #c8dde8;
+  --lavender-mist: #d8d0e8;
+
+  /* ── Card / Surface ── */
+  --card-bg: rgba(255, 255, 255, 0.72);
+  --card-border: rgba(138, 171, 138, 0.18);
+
+  /* ── Radii ── */
+  --radius-xl: 24px;
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+
+  /* ── Shadows ── */
+  --shadow-soft: 0 4px 32px rgba(90, 122, 90, 0.1), 0 1px 4px rgba(90, 122, 90, 0.06);
+  --shadow-card: 0 8px 48px rgba(90, 122, 90, 0.13), 0 2px 8px rgba(90, 122, 90, 0.07);
+
+  /* ── Motion ── */
+  --transition: all 0.38s cubic-bezier(0.34, 1.1, 0.64, 1);
+  --transition-fast: all 0.18s ease;
+
+  /* ── Typography ── */
+  --font-serif: 'Lora', serif;
+  --font-sans: 'DM Sans', sans-serif;
+
+  /* ── Spacing ── */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 36px;
+
+  /* ── Layout ── */
+  --sidebar-width: 56px;
+  --topbar-height: 62px;
+  --help-panel-width: 320px;
+  /* Every page is inset by the gutter on all sides. On the side Sage is in,
+     the gutter widens to a rail so she (104px wide) never covers anything. */
+  --page-gutter: 24px;
+  --sage-rail: 136px;
+  /* The "Work notes & distractions" column beside the steps on the Tasks
+     page (its header lives in Tasks.css, its cells in StepRow.css). */
+  --work-log-width: 220px;
+  /* On phones and tablets the rail becomes a band across the bottom of the
+     page, above the tab bar, where Sage sits and talks. */
+  --sage-band: 88px;
+  --tabbar-height: 60px;
+}
+
+@media (max-width: 639px) {
+  :root {
+    --sage-band: 72px;
+    --topbar-height: 56px;
+  }
+}

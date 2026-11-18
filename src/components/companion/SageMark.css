@@ -1,0 +1,57 @@
+/* Sage's leaf in a soft sage circle, the same colours as the logo in the
+   sidebar. Fixed size and no shrinking, so it stays round beside long text. */
+.sage-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sage), var(--sage-light));
+  box-shadow: 0 2px 10px rgba(90, 122, 90, 0.18);
+}
+
+.sage-mark img {
+  object-fit: contain;
+}
+
+.sage-mark-sm {
+  width: 36px;
+  height: 36px;
+}
+
+.sage-mark-sm img {
+  width: 20px;
+  height: 20px;
+}
+
+.sage-mark-xs {
+  width: 26px;
+  height: 26px;
+}
+
+.sage-mark-xs img {
+  width: 14px;
+  height: 14px;
+}
+
+/* Standing in for the 3D Sage: the same size as her, leaf a little over half. */
+.sage-mark-px {
+  width: var(--mark-size);
+  height: var(--mark-size);
+  box-shadow: 0 6px 22px rgba(90, 122, 90, 0.22);
+}
+
+.sage-mark-px img {
+  width: 55%;
+  height: 55%;
+}
+
+.sage-mark-float img {
+  animation: float 3.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sage-mark-float img {
+    animation: none;
+  }
+}

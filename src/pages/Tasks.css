@@ -1,0 +1,432 @@
+.tasks-page {
+  animation: page-in 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  height: 100%;
+  overflow: hidden;
+}
+
+.tasks-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  height: 100%;
+}
+
+/* Content area */
+.tl-content {
+  padding: 28px 36px;
+  overflow-y: auto;
+  background: var(--warm-white);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* While composing a new task, the input card fills the page */
+.tl-content.composing .ai-input-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.tl-content.composing .ai-input-ta {
+  flex: 1;
+}
+
+.tl-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(138, 171, 138, 0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* Sage banner */
+.sage-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--sage-mist);
+  border: 1px solid rgba(138, 171, 138, 0.22);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  margin-bottom: 24px;
+}
+
+.sage-banner-msg {
+  font-size: 13px;
+  color: var(--soft-text);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* Original brief tile */
+.brief-tile {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* When opened, the brief gets the room and pushes the steps below the fold */
+.brief-tile.open .brief-ta {
+  min-height: 45vh;
+}
+
+.brief-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.brief-head:hover {
+  background: rgba(238, 245, 238, 0.5);
+}
+
+.brief-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted-text);
+  flex-shrink: 0;
+}
+
+.brief-preview {
+  flex: 1;
+  font-size: 12px;
+  color: var(--soft-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-style: italic;
+}
+
+.brief-chevron {
+  font-size: 16px;
+  color: var(--muted-text);
+  transition: transform 0.2s;
+  margin-left: auto;
+}
+
+.brief-tile.open .brief-chevron {
+  transform: rotate(90deg);
+}
+
+.brief-body {
+  padding: 0 18px 14px;
+  border-top: 1px solid rgba(138, 171, 138, 0.12);
+}
+
+.brief-ta {
+  width: 100%;
+  border: 1px solid rgba(138, 171, 138, 0.25);
+  border-radius: var(--radius-md);
+  background: white;
+  padding: 10px 12px;
+  margin-top: 12px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--dark-text);
+  resize: vertical;
+  outline: none;
+  transition: var(--transition);
+}
+
+.brief-ta:focus {
+  border-color: var(--sage);
+}
+
+.brief-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.brief-hint {
+  font-size: 11px;
+  color: var(--muted-text);
+}
+
+/* Steps card */
+.steps-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
+}
+
+.steps-scroll {
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* Two columns matching the step lines below (StepRow.css): the task, and
+   the heading of the "Work notes & distractions" column. */
+.steps-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--work-log-width);
+  border-bottom: 1px solid rgba(138, 171, 138, 0.12);
+  /* Pinned at the top of the scrolling steps; solid so rows don't show
+     through it as they pass underneath. */
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #fbfaf8;
+}
+
+.steps-head-info {
+  padding: 18px 22px;
+  align-self: center;
+}
+
+.steps-log-head {
+  display: flex;
+  align-items: center;
+  padding: 18px 14px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  background: rgba(238, 245, 238, 0.45);
+  border-left: 1px solid rgba(138, 171, 138, 0.14);
+}
+
+.steps-head-info strong {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--dark-text);
+}
+
+.steps-head-info span {
+  font-size: 12px;
+  color: var(--muted-text);
+  margin-left: 8px;
+}
+
+/* Names AI-written plans openly, as the sample plan is. The two-class
+   selector outranks the plain span rule above. Inline-block keeps the pill
+   whole, so on narrow screens it drops to the next line instead of overflowing. */
+.steps-head-info .plan-source {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--sage-deep);
+  background: var(--sage-mist);
+  border: 1px solid rgba(138, 171, 138, 0.25);
+  border-radius: 20px;
+  padding: 2px 8px;
+  margin-left: 8px;
+  white-space: nowrap;
+}
+
+/* Add step */
+.add-step-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  color: var(--muted-text);
+  font-size: 12.5px;
+  cursor: pointer;
+  border-top: 1px dashed rgba(138, 171, 138, 0.25);
+  transition: var(--transition);
+}
+
+.add-step-row:hover {
+  background: var(--sage-mist);
+  color: var(--sage-deep);
+}
+
+.add-step-form {
+  padding: 16px 22px;
+  border-top: 1px dashed rgba(138, 171, 138, 0.25);
+  background: rgba(238, 245, 238, 0.45);
+}
+
+.add-step-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Empty state */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  text-align: center;
+  color: var(--muted-text);
+  gap: 10px;
+}
+
+.empty-icon { width: 32px; height: 32px; object-fit: contain; }
+
+.empty-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--soft-text);
+}
+
+.empty-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 280px;
+}
+
+/* Error state */
+.sage-error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  border-radius: var(--radius-lg);
+  color: var(--soft-text);
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+/* A plan that stood in for a real one. This is information, not a fault, so
+   it takes the calm sage tone rather than the amber used for errors. */
+.sage-sample {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--sage-mist);
+  border: 1px solid rgba(138, 171, 138, 0.28);
+  border-radius: var(--radius-lg);
+  color: var(--soft-text);
+  font-size: 13px;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+/* Shimmer loader */
+.shim-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+}
+
+/* Says in words that work is happening; the shimmer alone read as stalled. */
+.shim-status {
+  font-size: 13px;
+  color: var(--soft-text);
+  font-style: italic;
+  margin-bottom: 14px;
+}
+
+.shim-line {
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, rgba(138, 171, 138, 0.1) 0%, rgba(138, 171, 138, 0.2) 50%, rgba(138, 171, 138, 0.1) 100%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  margin-bottom: 10px;
+}
+
+/* ── Small screens ──
+   Below 1024px: one column — My Tasks (folded to a toggle), Sage's
+   message, notices, the "break it down" box or the original brief, then
+   the steps. The page scrolls as a whole instead of per column.
+   Below 640px: tighter cards. */
+@media (max-width: 1023px) {
+  .tasks-page {
+    overflow-y: auto;
+  }
+
+  .tasks-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: auto;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .tl-content {
+    padding: 0;
+    overflow: visible;
+    background: none;
+  }
+
+  .tl-content::before {
+    display: none;
+  }
+
+  .tl-content.composing .ai-input-card {
+    flex: none;
+  }
+
+  .tl-content.composing .ai-input-ta {
+    min-height: 120px;
+  }
+
+  /* The work-log column folds under each step (StepRow.css), so its
+     heading goes. */
+  .steps-head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .steps-log-head {
+    display: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .sage-banner {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+  }
+
+  /* The task name on its own line, with "4 steps · est. 65 min" (and the
+     AI pill) underneath, so the count never wraps after the title. */
+  .steps-head-info strong {
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .steps-head-info strong + span {
+    margin-left: 0;
+  }
+
+  .steps-head-info {
+    padding: 16px 18px;
+  }
+
+  .brief-head {
+    min-height: 44px;
+  }
+
+  .add-step-row {
+    min-height: 44px;
+    padding: 12px 18px;
+  }
+}
